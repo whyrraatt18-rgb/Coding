@@ -1,0 +1,45 @@
+import java.io.*;
+import java.util.*;
+class Node{
+    int data;
+    Node left,right;
+    Node(int val)
+    {
+        data=val;
+        left=right=null;
+    }
+}
+public class Solution {
+    static void preorder(Node root){
+        if(root==null)
+        return;
+        System.out.print(root.data+" ");
+        preorder(root.left);
+        preorder(root.right);
+    }
+    public static void main(String[] args) {
+      Scanner sc=new Scanner(System.in);
+      int n=sc.nextInt();
+      int arr[]=new int[n];
+      for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+      Queue<Node> q=new LinkedList<>();
+      Node root=new Node(arr[0]);
+      q.offer(root);
+      for(int i=1;i<n;i++)
+      {
+        Node t=q.poll();
+        if(arr[i]!=-1){
+            Node l=new Node(arr[i]);
+            t.left=l;
+            q.offer(l);
+        }
+        if(++i<n && arr[i]!=-1)
+        {
+            Node r=new Node(arr[i]);
+            t.right=r;
+            q.offer(r);
+        }
+      }
+      preorder(root);
+    }
+}
